@@ -1,6 +1,17 @@
 #!/usr/bin/env nextflow
 
-process to_uppercase {
+process to_uppercase_bash {
+  input: 
+    val x
+
+  script:
+    """
+    echo $x | tr '[a-z]' '[A-Z]' > myoutput
+
+    """
+}
+
+process to_uppercase_python {
   input: 
     val x
 
@@ -18,6 +29,6 @@ process to_uppercase {
 }
 
 workflow {
-    to_uppercase('hello world!')
+    to_uppercase_bash('hello world!')
 
 }
