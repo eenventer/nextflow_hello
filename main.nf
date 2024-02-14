@@ -1,16 +1,23 @@
 #!/usr/bin/env nextflow
 
-process sayHello {
+process to_uppercase {
   input: 
     val x
+
   output:
-    stdout
+    path 'myoutput'
+
   script:
     """
-    echo '$x world!'
+    #!python3
+    x="$x"
+    with open(f"myoutput", "w") as f:
+      f.write(x.upper())
+
     """
 }
 
 workflow {
-  Channel.of('Bonjour', 'Ciao', 'Hello', 'Hola') | sayHello | view
+    to_uppercase('hello world!')
+
 }
